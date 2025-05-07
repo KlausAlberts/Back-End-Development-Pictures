@@ -49,7 +49,7 @@ def get_picture_by_id(id):
     # Iterate through the 'data' list to search for a picture with a matching ID
     for picture in data:
         # Check if the 'id' field of the Picture matches the 'var_name' parameter
-        if picture["id"] == str(id):
+        if picture["id"] == id:
             # Return the picture as a JSON response if a match is found
             return picture
     # Return a JSON response with a message and a 404 Not Found status code if no matching person is found
@@ -63,7 +63,7 @@ def get_picture_by_id(id):
 def create_picture():
     # get data from the json body
     picture_in = request.json
-
+    print(picture_in)
     #if the id is already there, return 302 with the URL for the resource
     for picture in data:
         if picture_in["id"] == picture["id"]:
@@ -100,6 +100,7 @@ def delete_picture(id):
             # Remove the picture from the data list
             data.remove(picture)
             # Return a JSON response with a message and HTTP status code 200 (OK)
-            return {"message": "Picture with ID deleted"}, 200
-    # If no picture with the given ID is found, return a JSON response with a message and HTTP status code 404 (Not Found)
+            return "", 204
+
+    # if no picture with the given ID is found, return a JSON response with a message and HTTP status code 404 (Not Found)
     return {"message": "Person not found"}, 404
